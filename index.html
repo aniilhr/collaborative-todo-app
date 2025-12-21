@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Advanced Todo Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">🗂 Advanced Todo Manager</div>
+  <input id="searchInput" placeholder="Search todos..." />
+  <div class="top-actions">
+    <button id="todayViewBtn">Today</button>
+    <button id="weekViewBtn">Week</button>
+    <button id="monthViewBtn">Month</button>
+    <button id="exportBtn">Export</button>
+    <label class="import-btn">
+      Import
+      <input type="file" id="importInput" hidden />
+    </label>
+  </div>
+</header>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>My Lists</h3>
+      <button id="addListBtn">＋</button>
+    </div>
+    <ul id="listContainer"></ul>
+
+    <h4>Smart Lists</h4>
+    <ul id="smartListContainer"></ul>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Loader -->
+    <div id="loader" class="skeleton-wrapper">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+
+    <!-- Todo Area -->
+    <section id="todoArea" hidden>
+
+      <div class="view-header">
+        <h2 id="currentViewTitle"></h2>
+        <div class="view-actions">
+          <button id="renameListBtn">Rename</button>
+          <button id="colorListBtn">Color</button>
+          <button id="iconListBtn">Icon</button>
+          <button id="archiveListBtn">Archive</button>
+          <button id="deleteListBtn" class="danger">Delete</button>
+          <input type="color" id="colorPicker" hidden />
+        </div>
+      </div>
+
+      <form id="todoForm" class="todo-form">
+        <input id="todoTitle" placeholder="Todo title" required />
+        <input type="date" id="todoDueDate" />
+        <select id="todoPriority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <select id="assignedTo">
+          <option value="me">Assigned to me</option>
+          <option value="team">Assigned to team</option>
+        </select>
+        <button>Add</button>
+      </form>
+
+      <!-- Bulk Bar -->
+      <div id="bulkBar" hidden>
+        <span id="bulkCount"></span>
+        <button id="bulkCompleteBtn">Complete</button>
+        <button id="bulkUncompleteBtn">Uncomplete</button>
+        <button id="bulkDeleteBtn">Delete</button>
+        <select id="bulkMoveSelect"></select>
+        <select id="bulkPrioritySelect">
+          <option value="">Priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+
+      <ul id="todoList"></ul>
+      <div id="emptyState">No todos here yet</div>
+
+    </section>
+
+    <!-- Calendar -->
+    <section id="calendarArea" hidden>
+      <h2 id="calendarTitle"></h2>
+      <div id="calendarGrid" class="calendar-grid"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+/* =====================================================
+   RESET & BASE
+===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+.topbar {
+  height: 56px;
+  background: #020617;
+  border-bottom: 1px solid #1f2937;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 16px;
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+.topbar input {
+  flex: 1;
+  max-width: 300px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.top-actions button,
+.import-btn {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #1e293b;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.top-actions button:hover,
+.import-btn:hover {
+  background: #334155;
+}
+
+/* =====================================================
+   APP LAYOUT
+===================================================== */
+.app {
+  display: flex;
+  height: calc(100vh - 56px);
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+.sidebar {
+  width: 260px;
+  background: #020617;
+  border-right: 1px solid #1f2937;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sidebar-header h3 {
+  font-size: 14px;
+}
+
+.sidebar-header button {
+  background: #22c55e;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 8px;
+  cursor: pointer;
+  color: #022c22;
+}
+
+.sidebar h4 {
+  margin-top: 18px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.sidebar li:hover {
+  background: #111827;
+}
+
+.sidebar li.active {
+  background: #1e293b;
+  border-left: 3px solid #2563eb;
+}
+
+/* =====================================================
+   MAIN AREA
+===================================================== */
+.main {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* =====================================================
+   VIEW HEADER
+===================================================== */
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.view-header h2 {
+  font-size: 18px;
+}
+
+.view-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.view-actions button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #1e293b;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.view-actions button:hover {
+  background: #334155;
+}
+
+.view-actions .danger {
+  background: #7f1d1d;
+}
+
+.view-actions .danger:hover {
+  background: #991b1b;
+}
+
+/* =====================================================
+   TODO FORM
+===================================================== */
+.todo-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.todo-form input,
+.todo-form select {
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+.todo-form button {
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+.todo-form button:hover {
+  background: #1d4ed8;
+}
+
+/* =====================================================
+   BULK BAR
+===================================================== */
+#bulkBar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  background: #020617;
+  border: 1px dashed #334155;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+#bulkBar span {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+#bulkBar button,
+#bulkBar select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #1e293b;
+  color: #e5e7eb;
+  font-size: 12px;
+}
+
+#bulkBar button:hover {
+  background: #334155;
+}
+
+/* =====================================================
+   TODO LIST
+===================================================== */
+#todoList {
+  list-style: none;
+}
+
+#todoList li {
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#todoList li.overdue {
+  border-color: #ef4444;
+}
+
+#todoList li input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+#todoList li .priority-high {
+  color: #f97316;
+}
+
+#todoList li .priority-medium {
+  color: #eab308;
+}
+
+#todoList li .priority-low {
+  color: #22c55e;
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+#emptyState {
+  text-align: center;
+  color: #9ca3af;
+  margin-top: 40px;
+}
+
+/* =====================================================
+   SKELETON LOADER
+===================================================== */
+.skeleton-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton {
+  height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    #111827 25%,
+    #1f2937 37%,
+    #111827 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.3s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* =====================================================
+   CALENDAR
+===================================================== */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.calendar-grid div {
+  min-height: 90px;
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.calendar-grid div strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #e5e7eb;
+}
