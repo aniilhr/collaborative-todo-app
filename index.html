@@ -1,111 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Advanced Todo Manager</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Week 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-check-double"></i>
+                <span>TaskManager</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <button class="nav-btn active" data-view="list" data-filter="all">
+                        <i class="fa-solid fa-inbox"></i> All Tasks
+                    </button>
+                    <button class="nav-btn" data-view="list" data-filter="today">
+                        <i class="fa-solid fa-sun"></i> Today
+                    </button>
+                    <button class="nav-btn" data-view="calendar">
+                        <i class="fa-solid fa-calendar-days"></i> Calendar
+                    </button>
+                </div>
 
-<header class="topbar">
-  <div class="logo">🗂 Advanced Todo Manager</div>
-  <input id="searchInput" placeholder="Search todos..." />
-  <div class="top-actions">
-    <button id="todayViewBtn">Today</button>
-    <button id="weekViewBtn">Week</button>
-    <button id="monthViewBtn">Month</button>
-    <button id="exportBtn">Export</button>
-    <label class="import-btn">
-      Import
-      <input type="file" id="importInput" hidden />
-    </label>
-  </div>
-</header>
+                <div class="nav-section">
+                    <div id="projectListContainer"></div>
+                    <button class="add-list-btn" id="addListBtn">
+                        <i class="fa-solid fa-plus"></i> New List
+                    </button>
+                </div>
+            </nav>
+        </aside>
 
-<div class="app">
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 id="pageTitle">All Tasks</h2>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search tasks...">
+                    </div>
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fa-solid fa-bell"></i>
+                    </button>
+                </div>
+            </header>
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <h3>My Lists</h3>
-      <button id="addListBtn">＋</button>
+            <section id="view-list" class="view-section">
+                <div class="toolbar">
+                    <div class="filters">
+                        <select id="sortSelect">
+                            <option value="date">Sort by Date</option>
+                            <option value="priority">Sort by Priority</option>
+                        </select>
+                    </div>
+                    <button class="primary-btn" id="addTaskBtn">
+                        <i class="fa-solid fa-plus"></i> Add Task
+                    </button>
+                </div>
+
+                <div id="loadingSkeleton" class="skeleton-container hidden">
+                    <div class="skeleton-item"></div>
+                    <div class="skeleton-item"></div>
+                    <div class="skeleton-item"></div>
+                </div>
+
+                <div class="todo-list-container" id="todoList"></div>
+            </section>
+
+            <section id="view-calendar" class="view-section hidden">
+                <div class="calendar-header">
+                    <button id="prevMonth"><i class="fa-solid fa-chevron-left"></i></button>
+                    <h3 id="calendarMonthDisplay"></h3>
+                    <button id="nextMonth"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-grid-header">
+                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </section>
+        </main>
     </div>
-    <ul id="listContainer"></ul>
 
-    <h4>Smart Lists</h4>
-    <ul id="smartListContainer"></ul>
-  </aside>
-
-  <!-- Main -->
-  <main class="main">
-
-    <!-- Loader -->
-    <div id="loader" class="skeleton-wrapper">
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-    </div>
-
-    <!-- Todo Area -->
-    <section id="todoArea" hidden>
-
-      <div class="view-header">
-        <h2 id="currentViewTitle"></h2>
-        <div class="view-actions">
-          <button id="renameListBtn">Rename</button>
-          <button id="colorListBtn">Color</button>
-          <button id="iconListBtn">Icon</button>
-          <button id="archiveListBtn">Archive</button>
-          <button id="deleteListBtn" class="danger">Delete</button>
-          <input type="color" id="colorPicker" hidden />
+    <div class="modal-overlay hidden" id="taskModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">New Task</h3>
+                <button class="close-modal"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <form id="taskForm">
+                <div class="modal-body">
+                    <input type="hidden" id="taskId">
+                    <div class="form-group">
+                        <input type="text" id="taskTitle" placeholder="What needs to be done?" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="taskDesc" placeholder="Description"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            <input type="date" id="taskDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select id="taskPriority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>List</label>
+                        <select id="taskListSelect"></select>
+                    </div>
+                    <div class="subtask-section">
+                        <label>Subtasks</label>
+                        <div id="subtaskList"></div>
+                        <div class="add-subtask">
+                            <input type="text" id="subtaskInput" placeholder="Add step...">
+                            <button type="button" id="addSubtaskBtn"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="secondary-btn close-modal">Cancel</button>
+                    <button type="submit" class="primary-btn">Save</button>
+                </div>
+            </form>
         </div>
-      </div>
+    </div>
 
-      <form id="todoForm" class="todo-form">
-        <input id="todoTitle" placeholder="Todo title" required />
-        <input type="date" id="todoDueDate" />
-        <select id="todoPriority">
-          <option value="low">Low</option>
-          <option value="medium" selected>Medium</option>
-          <option value="high">High</option>
-        </select>
-        <select id="assignedTo">
-          <option value="me">Assigned to me</option>
-          <option value="team">Assigned to team</option>
-        </select>
-        <button>Add</button>
-      </form>
-
-      <!-- Bulk Bar -->
-      <div id="bulkBar" hidden>
-        <span id="bulkCount"></span>
-        <button id="bulkCompleteBtn">Complete</button>
-        <button id="bulkUncompleteBtn">Uncomplete</button>
-        <button id="bulkDeleteBtn">Delete</button>
-        <select id="bulkMoveSelect"></select>
-        <select id="bulkPrioritySelect">
-          <option value="">Priority</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-
-      <ul id="todoList"></ul>
-      <div id="emptyState">No todos here yet</div>
-
-    </section>
-
-    <!-- Calendar -->
-    <section id="calendarArea" hidden>
-      <h2 id="calendarTitle"></h2>
-      <div id="calendarGrid" class="calendar-grid"></div>
-    </section>
-
-  </main>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
